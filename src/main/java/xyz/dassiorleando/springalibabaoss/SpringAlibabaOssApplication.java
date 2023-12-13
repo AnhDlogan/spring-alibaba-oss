@@ -17,9 +17,6 @@ import java.net.URISyntaxException;
  */
 @SpringBootApplication
 public class SpringAlibabaOssApplication {
-
-    public static final String BUCKET_NAME = "oss-test-2";
-
     public static void main(String[] args) throws URISyntaxException {
         SpringApplication.run(SpringAlibabaOssApplication.class, args);
     }
@@ -30,23 +27,9 @@ public class SpringAlibabaOssApplication {
     }
 
     class AppRunner implements ApplicationRunner {
-        @Autowired
-        private OSS ossClient;
 
         @Override
-        public void run(ApplicationArguments args) throws Exception {
-            try {
-                if (!ossClient.doesBucketExist(BUCKET_NAME)) {
-                    ossClient.createBucket(BUCKET_NAME);
-
-                    // Define the ACL for a bucket to be private on both read and write
-                    ossClient.setBucketAcl(BUCKET_NAME, CannedAccessControlList.Private);
-                }
-            } catch (Exception e) {
-                System.err.println("oss handle bucket error: " + e.getMessage());
-                System.exit(-1);
-            }
+        public void run(ApplicationArguments args) {
         }
     }
-
 }

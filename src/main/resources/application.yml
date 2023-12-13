@@ -1,0 +1,13 @@
+spring:
+  application:
+    name : spring-alibaba-oss
+  cloud:
+    alicloud:
+      access-key: LTAI5tQRpnukj8MiwBKNcu5B
+      secret-key: yDhKcR8RrvPkqcZNsyyD5LdoMoQetu
+      oss:
+        endpoint: oss-ap-southeast-1.aliyuncs.com
+server:
+  port : 8080
+
+
