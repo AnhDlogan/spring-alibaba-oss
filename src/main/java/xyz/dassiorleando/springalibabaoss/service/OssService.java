@@ -132,6 +132,42 @@ public class OssService {
     public void uploadVideo(MetadataInfo data) {
         OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
         try {
+            CreateLiveChannelRequest request = new CreateLiveChannelRequest(data.getBucketName(),
+                    data.getLiveChannelName(), "desc", LiveChannelStatus.Enabled, new LiveChannelTarget());
+            CreateLiveChannelResult result = ossClient.createLiveChannel(request);
+
+            // Query the ingest URL.
+            List<String> publishUrls = result.getPublishUrls();
+            for (String item : publishUrls) {
+                System.out.println(item);
+            }
+
+            // Query the streaming URL.
+            List<String> playUrls = result.getPlayUrls();
+            for (String item : playUrls) {
+                System.out.println(item);
+            }
+            logger.info("Open liveChannel success");
+            logger.info("publishUrl: {}", publishUrls);
+            logger.info("playUrl: {}", playUrls);
+
+        } catch (OSSException oe) {
+            oe.printStackTrace();
+            System.out.println("Error Message:" + oe.getErrorMessage());
+            System.out.println("Error Code:" + oe.getErrorCode());
+            System.out.println("Request ID:" + oe.getRequestId());
+            System.out.println("Host ID:" + oe.getHostId());
+        }
+        finally {
+            if (ossClient != null) {
+                ossClient.shutdown();
+            }
+        }
+    }
+
+    public void uploadObject(MetadataInfo data) {
+        OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
+        try {
             PutObjectRequest putObjectRequest = new PutObjectRequest(data.getBucketName(), data.getObjectName(), new File(data.getFilePath()));
             ossClient.putObject(putObjectRequest);
 

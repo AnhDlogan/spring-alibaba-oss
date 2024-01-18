@@ -3,8 +3,8 @@ spring:
     name : spring-alibaba-oss
   cloud:
     alicloud:
-      access-key: LTAI5tQRpnukj8MiwBKNcu5B
-      secret-key: yDhKcR8RrvPkqcZNsyyD5LdoMoQetu
+      access-key:
+      secret-key:
       oss:
         endpoint: oss-ap-southeast-1.aliyuncs.com
 server:
